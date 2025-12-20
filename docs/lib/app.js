@@ -1,6 +1,6 @@
 import 'bootstrap-css';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
 import { Router, RouterContext, match, browserHistory, createMemoryHistory } from 'react-router';
 import Helmet from 'react-helmet';
@@ -19,7 +19,8 @@ if (typeof document !== 'undefined') {
     Holder = require('holderjs');
   });
 
-  ReactDOM.hydrate(
+  hydrateRoot(
+    outlet,
     <Router
       onUpdate={() => {
         window.scrollTo(0, 0);
@@ -30,8 +31,7 @@ if (typeof document !== 'undefined') {
       }}
       history={browserHistory}
       routes={routes}
-    />,
-    outlet
+    />
   );
 }
 
