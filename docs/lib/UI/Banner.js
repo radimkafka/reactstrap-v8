@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function Banner() {
+  return null;
   return (
     <div
       className="bg-dark fixed-top d-flex flex-column flex-md-row justify-content-center align-items-center text-center"

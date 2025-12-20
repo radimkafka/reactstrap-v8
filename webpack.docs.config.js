@@ -80,6 +80,8 @@ const config = {
       paths,
       globals: {
         window: { },
+        TextEncoder: require('util').TextEncoder,
+        TextDecoder: require('util').TextDecoder,
       }
     }),
     new MiniCssExtractPlugin({
