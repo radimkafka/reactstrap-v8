@@ -11,19 +11,14 @@ const propTypes = {
   children: PropTypes.node,
 };
 
-const defaultProps = {
-  tag: 'button',
-  type: 'button'
-};
-
-const NavbarToggler = (props) => {
-  const {
-    className,
-    cssModule,
-    children,
-    tag: Tag,
-    ...attributes
-  } = props;
+const NavbarToggler = ({
+  className,
+  cssModule,
+  children,
+  tag: Tag = 'button',
+  type = 'button',
+  ...attributes
+}) => {
 
   const classes = mapToCssModules(classNames(
     className,
@@ -38,6 +33,5 @@ const NavbarToggler = (props) => {
 };
 
 NavbarToggler.propTypes = propTypes;
-NavbarToggler.defaultProps = defaultProps;
 
 export default NavbarToggler;

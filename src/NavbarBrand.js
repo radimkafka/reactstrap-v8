@@ -9,17 +9,12 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'a'
-};
-
-const NavbarBrand = (props) => {
-  const {
-    className,
-    cssModule,
-    tag: Tag,
-    ...attributes
-  } = props;
+const NavbarBrand = ({
+  className,
+  cssModule,
+  tag: Tag = 'a',
+  ...attributes
+}) => {
 
   const classes = mapToCssModules(classNames(
     className,
@@ -32,6 +27,5 @@ const NavbarBrand = (props) => {
 };
 
 NavbarBrand.propTypes = propTypes;
-NavbarBrand.defaultProps = defaultProps;
 
 export default NavbarBrand;

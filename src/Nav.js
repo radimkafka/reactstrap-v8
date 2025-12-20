@@ -17,11 +17,6 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'ul',
-  vertical: false,
-};
-
 const getVerticalClass = (vertical) => {
   if (vertical === false) {
     return false;
@@ -32,21 +27,20 @@ const getVerticalClass = (vertical) => {
   return `flex-${vertical}-column`;
 };
 
-const Nav = (props) => {
-  const {
-    className,
-    cssModule,
-    tabs,
-    pills,
-    vertical,
-    horizontal,
-    justified,
-    fill,
-    navbar,
-    card,
-    tag: Tag,
-    ...attributes
-  } = props;
+const Nav = ({
+  className,
+  cssModule,
+  tabs,
+  pills,
+  vertical = false,
+  horizontal,
+  justified,
+  fill,
+  navbar,
+  card,
+  tag: Tag = 'ul',
+  ...attributes
+}) => {
 
   const classes = mapToCssModules(classNames(
     className,
@@ -69,6 +63,5 @@ const Nav = (props) => {
 };
 
 Nav.propTypes = propTypes;
-Nav.defaultProps = defaultProps;
 
 export default Nav;

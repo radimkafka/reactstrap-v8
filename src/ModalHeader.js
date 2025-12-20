@@ -15,13 +15,6 @@ const propTypes = {
   close: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'h5',
-  wrapTag: 'div',
-  closeAriaLabel: 'Close',
-  charCode: 215,
-};
-
 const ModalHeader = (props) => {
   let closeButton;
   const {
@@ -29,10 +22,10 @@ const ModalHeader = (props) => {
     cssModule,
     children,
     toggle,
-    tag: Tag,
-    wrapTag: WrapTag,
-    closeAriaLabel,
-    charCode,
+    tag: Tag = 'h5',
+    wrapTag: WrapTag = 'div',
+    closeAriaLabel = 'Close',
+    charCode = 215,
     close,
     ...attributes } = props;
 
@@ -61,6 +54,5 @@ const ModalHeader = (props) => {
 };
 
 ModalHeader.propTypes = propTypes;
-ModalHeader.defaultProps = defaultProps;
 
 export default ModalHeader;

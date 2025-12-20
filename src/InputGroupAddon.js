@@ -12,15 +12,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div'
-};
-
 const InputGroupAddon = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
     addonType,
     children,
     ...attributes
@@ -46,6 +42,5 @@ const InputGroupAddon = (props) => {
 };
 
 InputGroupAddon.propTypes = propTypes;
-InputGroupAddon.defaultProps = defaultProps;
 
 export default InputGroupAddon;

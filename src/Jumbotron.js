@@ -10,15 +10,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div'
-};
-
 const Jumbotron = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
     fluid,
     ...attributes
   } = props;
@@ -35,6 +31,5 @@ const Jumbotron = (props) => {
 };
 
 Jumbotron.propTypes = propTypes;
-Jumbotron.defaultProps = defaultProps;
 
 export default Jumbotron;

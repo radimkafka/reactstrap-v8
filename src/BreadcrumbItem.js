@@ -10,16 +10,12 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'li'
-};
-
 const BreadcrumbItem = (props) => {
   const {
     className,
     cssModule,
     active,
-    tag: Tag,
+    tag: Tag = 'li',
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -34,6 +30,5 @@ const BreadcrumbItem = (props) => {
 };
 
 BreadcrumbItem.propTypes = propTypes;
-BreadcrumbItem.defaultProps = defaultProps;
 
 export default BreadcrumbItem;

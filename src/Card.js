@@ -18,10 +18,6 @@ const propTypes = {
   ]),
 };
 
-const defaultProps = {
-  tag: 'div'
-};
-
 const Card = (props) => {
   const {
     className,
@@ -30,7 +26,7 @@ const Card = (props) => {
     body,
     inverse,
     outline,
-    tag: Tag,
+    tag: Tag = 'div',
     innerRef,
     ...attributes
   } = props;
@@ -48,6 +44,5 @@ const Card = (props) => {
 };
 
 Card.propTypes = propTypes;
-Card.defaultProps = defaultProps;
 
 export default Card;

@@ -14,10 +14,6 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div',
-};
-
 const FormGroup = (props) => {
   const {
     className,
@@ -26,7 +22,7 @@ const FormGroup = (props) => {
     disabled,
     check,
     inline,
-    tag: Tag,
+    tag: Tag = 'div',
     ...attributes
   } = props;
 
@@ -48,6 +44,5 @@ const FormGroup = (props) => {
 };
 
 FormGroup.propTypes = propTypes;
-FormGroup.defaultProps = defaultProps;
 
 export default FormGroup;

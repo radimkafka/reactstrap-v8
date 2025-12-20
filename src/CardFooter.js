@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div'
-};
-
 const CardFooter = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -31,6 +27,5 @@ const CardFooter = (props) => {
 };
 
 CardFooter.propTypes = propTypes;
-CardFooter.defaultProps = defaultProps;
 
 export default CardFooter;

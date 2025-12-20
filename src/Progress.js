@@ -32,32 +32,23 @@ const propTypes = {
   barAriaLabelledBy: PropTypes.string,
 };
 
-const defaultProps = {
-  tag: 'div',
-  value: 0,
-  min: 0,
-  max: 100,
-  style: {},
-  barStyle: {}
-};
-
 const Progress = (props) => {
   const {
     children,
     className,
     barClassName,
     cssModule,
-    value,
-    min,
-    max,
+    value = 0,
+    min = 0,
+    max = 100,
     animated,
     striped,
     color,
     bar,
     multi,
-    tag: Tag,
-    style,
-    barStyle,
+    tag: Tag = 'div',
+    style = {},
+    barStyle = {},
     barAriaValueText,
     barAriaLabelledBy,
     ...attributes
@@ -111,6 +102,5 @@ const Progress = (props) => {
 };
 
 Progress.propTypes = propTypes;
-Progress.defaultProps = defaultProps;
 
 export default Progress;

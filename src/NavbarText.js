@@ -9,16 +9,12 @@ const propTypes = {
   cssModule: PropTypes.object
 };
 
-const defaultProps = {
-  tag: 'span'
-};
-
 const NavbarText = (props) => {
   const {
     className,
     cssModule,
     active,
-    tag: Tag,
+    tag: Tag = 'span',
     ...attributes
   } = props;
 
@@ -33,6 +29,5 @@ const NavbarText = (props) => {
 };
 
 NavbarText.propTypes = propTypes;
-NavbarText.defaultProps = defaultProps;
 
 export default NavbarText;

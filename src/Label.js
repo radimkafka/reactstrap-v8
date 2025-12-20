@@ -35,11 +35,6 @@ const propTypes = {
   widths: PropTypes.array,
 };
 
-const defaultProps = {
-  tag: 'label',
-  widths: colWidths,
-};
-
 const getColumnSizeClass = (isXs, colWidth, colSize) => {
   if (colSize === true || colSize === '') {
     return isXs ? 'col' : `col-${colWidth}`;
@@ -55,8 +50,8 @@ const Label = (props) => {
     className,
     cssModule,
     hidden,
-    widths,
-    tag: Tag,
+    widths = colWidths,
+    tag: Tag = 'label',
     check,
     size,
     for: htmlFor,
@@ -107,6 +102,5 @@ const Label = (props) => {
 };
 
 Label.propTypes = propTypes;
-Label.defaultProps = defaultProps;
 
 export default Label;

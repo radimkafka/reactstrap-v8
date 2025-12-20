@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'span'
-};
-
 const InputGroupText = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'span',
     ...attributes
   } = props;
 
@@ -32,6 +28,5 @@ const InputGroupText = (props) => {
 };
 
 InputGroupText.propTypes = propTypes;
-InputGroupText.defaultProps = defaultProps;
 
 export default InputGroupText;

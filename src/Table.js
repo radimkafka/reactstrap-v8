@@ -18,11 +18,6 @@ const propTypes = {
   innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]),
 };
 
-const defaultProps = {
-  tag: 'table',
-  responsiveTag: 'div',
-};
-
 const Table = (props) => {
   const {
     className,
@@ -34,8 +29,8 @@ const Table = (props) => {
     dark,
     hover,
     responsive,
-    tag: Tag,
-    responsiveTag: ResponsiveTag,
+    tag: Tag = 'table',
+    responsiveTag: ResponsiveTag = 'div',
     innerRef,
     ...attributes
   } = props;
@@ -65,6 +60,5 @@ const Table = (props) => {
 };
 
 Table.propTypes = propTypes;
-Table.defaultProps = defaultProps;
 
 export default Table;

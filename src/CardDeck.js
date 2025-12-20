@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div',
-};
-
 const CardDeck = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -31,6 +27,5 @@ const CardDeck = (props) => {
 };
 
 CardDeck.propTypes = propTypes;
-CardDeck.defaultProps = defaultProps;
 
 export default CardDeck;

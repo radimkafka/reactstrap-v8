@@ -10,15 +10,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'a'
-};
-
 const CardLink = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'a',
     innerRef,
     ...attributes
   } = props;
@@ -33,6 +29,5 @@ const CardLink = (props) => {
 };
 
 CardLink.propTypes = propTypes;
-CardLink.defaultProps = defaultProps;
 
 export default CardLink;

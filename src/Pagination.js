@@ -14,21 +14,15 @@ const propTypes = {
   'aria-label': PropTypes.string
 };
 
-const defaultProps = {
-  tag: 'nav',
-  listTag: 'ul',
-  'aria-label': 'pagination'
-};
-
 const Pagination = (props) => {
   const {
     className,
     listClassName,
     cssModule,
     size,
-    tag: Tag,
-    listTag: ListTag,
-    'aria-label': label,
+    tag: Tag = 'nav',
+    listTag: ListTag = 'ul',
+    'aria-label': label = 'pagination',
     ...attributes
   } = props;
 
@@ -52,6 +46,5 @@ const Pagination = (props) => {
 };
 
 Pagination.propTypes = propTypes;
-Pagination.defaultProps = defaultProps;
 
 export default Pagination;

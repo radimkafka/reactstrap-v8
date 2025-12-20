@@ -14,16 +14,12 @@ const propTypes = {
   ]),
 };
 
-const defaultProps = {
-  tag: 'div'
-};
-
 const ToastBody = (props) => {
   const {
     className,
     cssModule,
     innerRef,
-    tag: Tag,
+    tag: Tag = 'div',
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -37,6 +33,5 @@ const ToastBody = (props) => {
 };
 
 ToastBody.propTypes = propTypes;
-ToastBody.defaultProps = defaultProps;
 
 export default ToastBody;

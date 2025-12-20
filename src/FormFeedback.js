@@ -12,18 +12,13 @@ const propTypes = {
   tooltip: PropTypes.bool
 };
 
-const defaultProps = {
-  tag: 'div',
-  valid: undefined
-};
-
 const FormFeedback = (props) => {
   const {
     className,
     cssModule,
-    valid,
+    valid = undefined,
     tooltip,
-    tag: Tag,
+    tag: Tag = 'div',
     ...attributes
   } = props;
 
@@ -41,6 +36,5 @@ const FormFeedback = (props) => {
 };
 
 FormFeedback.propTypes = propTypes;
-FormFeedback.defaultProps = defaultProps;
 
 export default FormFeedback;

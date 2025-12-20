@@ -10,18 +10,13 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'li'
-};
-
-const NavItem = (props) => {
-  const {
-    className,
-    cssModule,
-    active,
-    tag: Tag,
-    ...attributes
-  } = props;
+const NavItem = ({
+  className,
+  cssModule,
+  active,
+  tag: Tag = 'li',
+  ...attributes
+}) => {
 
   const classes = mapToCssModules(classNames(
     className,
@@ -35,6 +30,5 @@ const NavItem = (props) => {
 };
 
 NavItem.propTypes = propTypes;
-NavItem.defaultProps = defaultProps;
 
 export default NavItem;

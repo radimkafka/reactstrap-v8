@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'p'
-};
-
 const ListGroupItemText = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'p',
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -31,6 +27,5 @@ const ListGroupItemText = (props) => {
 };
 
 ListGroupItemText.propTypes = propTypes;
-ListGroupItemText.defaultProps = defaultProps;
 
 export default ListGroupItemText;

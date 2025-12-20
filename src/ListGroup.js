@@ -11,11 +11,6 @@ const propTypes = {
   horizontal: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
-const defaultProps = {
-  tag: 'ul',
-  horizontal: false
-};
-
 const getHorizontalClass = horizontal => {
   if (horizontal === false) {
     return false;
@@ -29,9 +24,9 @@ const ListGroup = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'ul',
     flush,
-    horizontal,
+    horizontal = false,
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -48,6 +43,5 @@ const ListGroup = (props) => {
 };
 
 ListGroup.propTypes = propTypes;
-ListGroup.defaultProps = defaultProps;
 
 export default ListGroup;

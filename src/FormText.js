@@ -12,18 +12,13 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'small',
-  color: 'muted',
-};
-
 const FormText = (props) => {
   const {
     className,
     cssModule,
     inline,
-    color,
-    tag: Tag,
+    color = 'muted',
+    tag: Tag = 'small',
     ...attributes
   } = props;
 
@@ -39,6 +34,5 @@ const FormText = (props) => {
 };
 
 FormText.propTypes = propTypes;
-FormText.defaultProps = defaultProps;
 
 export default FormText;

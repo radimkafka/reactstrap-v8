@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'h5'
-};
-
 const ListGroupItemHeading = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'h5',
     ...attributes
   } = props;
   const classes = mapToCssModules(classNames(
@@ -31,6 +27,5 @@ const ListGroupItemHeading = (props) => {
 };
 
 ListGroupItemHeading.propTypes = propTypes;
-ListGroupItemHeading.defaultProps = defaultProps;
 
 export default ListGroupItemHeading;

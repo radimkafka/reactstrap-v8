@@ -10,15 +10,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div'
-};
-
 const InputGroup = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
     size,
     ...attributes
   } = props;
@@ -34,6 +30,5 @@ const InputGroup = (props) => {
 };
 
 InputGroup.propTypes = propTypes;
-InputGroup.defaultProps = defaultProps;
 
 export default InputGroup;

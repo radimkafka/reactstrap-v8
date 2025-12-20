@@ -19,19 +19,14 @@ const propTypes = {
   xl: rowColsPropType
 };
 
-const defaultProps = {
-  tag: 'div',
-  widths: rowColWidths
-};
-
 const Row = (props) => {
   const {
     className,
     cssModule,
     noGutters,
-    tag: Tag,
+    tag: Tag = 'div',
     form,
-    widths,
+    widths = rowColWidths,
     ...attributes
   } = props;
 
@@ -63,6 +58,5 @@ const Row = (props) => {
 };
 
 Row.propTypes = propTypes;
-Row.defaultProps = defaultProps;
 
 export default Row;

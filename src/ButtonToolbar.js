@@ -11,16 +11,12 @@ const propTypes = {
   role: PropTypes.string,
 };
 
-const defaultProps = {
-  tag: 'div',
-  role: 'toolbar',
-};
-
 const ButtonToolbar = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
+    role = 'toolbar',
     ...attributes
   } = props;
 
@@ -35,6 +31,5 @@ const ButtonToolbar = (props) => {
 };
 
 ButtonToolbar.propTypes = propTypes;
-ButtonToolbar.defaultProps = defaultProps;
 
 export default ButtonToolbar;

@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'div',
-};
-
 const ModalFooter = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'div',
     ...attributes } = props;
   const classes = mapToCssModules(classNames(
     className,
@@ -30,6 +26,5 @@ const ModalFooter = (props) => {
 };
 
 ModalFooter.propTypes = propTypes;
-ModalFooter.defaultProps = defaultProps;
 
 export default ModalFooter;

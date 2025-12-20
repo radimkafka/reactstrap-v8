@@ -11,17 +11,13 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'img'
-};
-
 const CardImg = (props) => {
   const {
     className,
     cssModule,
     top,
     bottom,
-    tag: Tag,
+    tag: Tag = 'img',
     ...attributes
   } = props;
 
@@ -44,6 +40,5 @@ const CardImg = (props) => {
 };
 
 CardImg.propTypes = propTypes;
-CardImg.defaultProps = defaultProps;
 
 export default CardImg;

@@ -9,15 +9,11 @@ const propTypes = {
   cssModule: PropTypes.object,
 };
 
-const defaultProps = {
-  tag: 'h3'
-};
-
 const PopoverHeader = (props) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'h3',
     ...attributes
   } = props;
 
@@ -32,6 +28,5 @@ const PopoverHeader = (props) => {
 };
 
 PopoverHeader.propTypes = propTypes;
-PopoverHeader.defaultProps = defaultProps;
 
 export default PopoverHeader;
