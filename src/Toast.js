@@ -19,25 +19,18 @@ const propTypes = {
   ]),
 };
 
-const defaultProps = {
-  isOpen: true,
-  tag: 'div',
-  fade: true,
-  transition: {
-    ...fadeDefaultProps,
-    unmountOnExit: true,
-  },
-};
-
 function Toast(props) {
   const {
     className,
     cssModule,
-    tag: Tag,
-    isOpen,
+    tag: Tag = 'div',
+    isOpen = true,
     children,
-    transition,
-    fade,
+    transition = {
+      ...fadeDefaultProps,
+      unmountOnExit: true,
+    },
+    fade = true,
     innerRef,
     ...attributes
   } = props;
@@ -59,6 +52,5 @@ function Toast(props) {
 }
 
 Toast.propTypes = propTypes;
-Toast.defaultProps = defaultProps;
 
 export default Toast;

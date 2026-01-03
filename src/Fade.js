@@ -6,6 +6,15 @@ import { mapToCssModules, omit, pick, TransitionPropTypeKeys, TransitionTimeouts
 
 const propTypes = {
   ...Transition.propTypes,
+  // Override timeout to not be required since we provide a default
+  timeout: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      enter: PropTypes.number,
+      exit: PropTypes.number,
+      appear: PropTypes.number,
+    }),
+  ]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -47,14 +56,18 @@ function Fade(props) {
     ...otherProps
   } = props;
 
-  // Set defaults for transition props
+  // Set defaults for transition props, filtering out undefined values
+  const pickedProps = pick(otherProps, TransitionPropTypeKeys);
+  const filteredProps = Object.fromEntries(
+    Object.entries(pickedProps).filter(([, v]) => v !== undefined)
+  );
   const transitionPropsWithDefaults = {
     timeout: TransitionTimeouts.Fade,
     appear: true,
     enter: true,
     exit: true,
     in: true,
-    ...pick(otherProps, TransitionPropTypeKeys),
+    ...filteredProps,
   };
   const childProps = omit(otherProps, TransitionPropTypeKeys);
 
