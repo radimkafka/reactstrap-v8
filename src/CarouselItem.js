@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
+import { CarouselContext } from './CarouselContext';
 import { mapToCssModules, TransitionTimeouts, TransitionStatuses, tagPropType } from './utils';
 
 class CarouselItem extends React.Component {
@@ -63,28 +64,31 @@ class CarouselItem extends React.Component {
         onExiting={this.onExiting}
         onExited={this.onExited}
       >
-        {(status) => {
-          const { direction } = this.context;
-          const isActive = (status === TransitionStatuses.ENTERED) || (status === TransitionStatuses.EXITING);
-          const directionClassName = (status === TransitionStatuses.ENTERING || status === TransitionStatuses.EXITING) &&
-            this.state.startAnimation &&
-            (direction === 'right' ? 'carousel-item-left' : 'carousel-item-right');
-          const orderClassName = (status === TransitionStatuses.ENTERING) &&
-            (direction === 'right' ? 'carousel-item-next' : 'carousel-item-prev');
-          const itemClasses = mapToCssModules(classNames(
-            className,
-            'carousel-item',
-            isActive && 'active',
-            directionClassName,
-            orderClassName,
-          ), cssModule);
+        {(status) => (
+          <CarouselContext.Consumer>
+            {({ direction }) => {
+              const isActive = (status === TransitionStatuses.ENTERED) || (status === TransitionStatuses.EXITING);
+              const directionClassName = (status === TransitionStatuses.ENTERING || status === TransitionStatuses.EXITING) &&
+                this.state.startAnimation &&
+                (direction === 'right' ? 'carousel-item-left' : 'carousel-item-right');
+              const orderClassName = (status === TransitionStatuses.ENTERING) &&
+                (direction === 'right' ? 'carousel-item-next' : 'carousel-item-prev');
+              const itemClasses = mapToCssModules(classNames(
+                className,
+                'carousel-item',
+                isActive && 'active',
+                directionClassName,
+                orderClassName,
+              ), cssModule);
 
-          return (
-            <Tag className={itemClasses}>
-              {children}
-            </Tag>
-          );
-        }}
+              return (
+                <Tag className={itemClasses}>
+                  {children}
+                </Tag>
+              );
+            }}
+          </CarouselContext.Consumer>
+        )}
       </Transition>
     );
   }
@@ -105,10 +109,6 @@ CarouselItem.defaultProps = {
   tag: 'div',
   timeout: TransitionTimeouts.Carousel,
   slide: true,
-};
-
-CarouselItem.contextTypes = {
-  direction: PropTypes.string
 };
 
 export default CarouselItem;

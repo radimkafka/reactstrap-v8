@@ -33,6 +33,7 @@ export CardHeader from './CardHeader';
 export CardImg from './CardImg';
 export CardImgOverlay from './CardImgOverlay';
 export Carousel from './Carousel';
+export { CarouselContext } from './CarouselContext';
 export UncontrolledCarousel from './UncontrolledCarousel';
 export CarouselControl from './CarouselControl';
 export CarouselItem from './CarouselItem';
