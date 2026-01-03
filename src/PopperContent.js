@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { Popper as ReactPopper } from 'react-popper';
 import { getTarget, targetPropType, mapToCssModules, DOMElement, tagPropType } from './utils';
-import Fade from './Fade';
+import Fade, { fadeDefaultProps } from './Fade';
 
 function noop() {  }
 
@@ -44,7 +44,7 @@ const defaultProps = {
   onClosed: noop,
   fade: true,
   transition: {
-      ...Fade.defaultProps,
+      ...fadeDefaultProps,
   }
 };
 
@@ -134,7 +134,7 @@ class PopperContent extends React.Component {
     };
 
     const popperTransition = {
-      ...Fade.defaultProps,
+      ...fadeDefaultProps,
       ...transition,
       baseClass: fade ? transition.baseClass : '',
       timeout: fade ? transition.timeout : 0,

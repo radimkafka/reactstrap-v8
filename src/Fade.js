@@ -22,7 +22,8 @@ const propTypes = {
   ]),
 };
 
-const defaultProps = {
+// Exported for other components to reference (e.g., Alert)
+export const fadeDefaultProps = {
   ...Transition.defaultProps,
   tag: 'div',
   baseClass: 'fade',
@@ -36,9 +37,9 @@ const defaultProps = {
 
 function Fade(props) {
   const {
-    tag: Tag,
-    baseClass,
-    baseClassActive,
+    tag: Tag = 'div',
+    baseClass = 'fade',
+    baseClassActive = 'show',
     className,
     cssModule,
     children,
@@ -46,11 +47,19 @@ function Fade(props) {
     ...otherProps
   } = props;
 
-  const transitionProps = pick(otherProps, TransitionPropTypeKeys);
+  // Set defaults for transition props
+  const transitionPropsWithDefaults = {
+    timeout: TransitionTimeouts.Fade,
+    appear: true,
+    enter: true,
+    exit: true,
+    in: true,
+    ...pick(otherProps, TransitionPropTypeKeys),
+  };
   const childProps = omit(otherProps, TransitionPropTypeKeys);
 
   return (
-    <Transition {...transitionProps}>
+    <Transition {...transitionPropsWithDefaults}>
       {(status) => {
         const isActive = status === 'entered';
         const classes = mapToCssModules(classNames(
@@ -69,6 +78,5 @@ function Fade(props) {
 }
 
 Fade.propTypes = propTypes;
-Fade.defaultProps = defaultProps;
 
 export default Fade;
