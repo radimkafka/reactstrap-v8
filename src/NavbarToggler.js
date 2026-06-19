@@ -26,7 +26,7 @@ const NavbarToggler = ({
   ), cssModule);
 
   return (
-    <Tag aria-label="Toggle navigation" {...attributes} className={classes}>
+    <Tag aria-label="Toggle navigation" type={type} {...attributes} className={classes}>
       {children || <span className={mapToCssModules('navbar-toggler-icon', cssModule)} />}
     </Tag>
   );

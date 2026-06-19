@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
@@ -13,6 +13,8 @@ class CarouselItem extends React.Component {
       startAnimation: false,
     };
 
+    this.nodeRef = createRef();
+
     this.onEnter = this.onEnter.bind(this);
     this.onEntering = this.onEntering.bind(this);
     this.onExit = this.onExit.bind(this);
@@ -20,12 +22,14 @@ class CarouselItem extends React.Component {
     this.onExited = this.onExited.bind(this);
   }
 
-  onEnter(node, isAppearing) {
+  onEnter(isAppearing) {
+    const node = this.nodeRef.current;
     this.setState({ startAnimation: false });
     this.props.onEnter(node, isAppearing);
   }
 
-  onEntering(node, isAppearing) {
+  onEntering(isAppearing) {
+    const node = this.nodeRef.current;
     // getting this variable triggers a reflow
     const offsetHeight = node.offsetHeight;
     this.setState({ startAnimation: true });
@@ -33,18 +37,21 @@ class CarouselItem extends React.Component {
     return offsetHeight;
   }
 
-  onExit(node) {
+  onExit() {
+    const node = this.nodeRef.current;
     this.setState({ startAnimation: false });
     this.props.onExit(node);
   }
 
-  onExiting(node) {
+  onExiting() {
+    const node = this.nodeRef.current;
     this.setState({ startAnimation: true });
     node.dispatchEvent(new CustomEvent('slide.bs.carousel'));
     this.props.onExiting(node);
   }
 
-  onExited(node) {
+  onExited() {
+    const node = this.nodeRef.current;
     node.dispatchEvent(new CustomEvent('slid.bs.carousel'));
     this.props.onExited(node);
   }
@@ -55,6 +62,7 @@ class CarouselItem extends React.Component {
     return (
       <Transition
         {...transitionProps}
+        nodeRef={this.nodeRef}
         enter={slide}
         exit={slide}
         in={isIn}
@@ -82,7 +90,7 @@ class CarouselItem extends React.Component {
               ), cssModule);
 
               return (
-                <Tag className={itemClasses}>
+                <Tag ref={this.nodeRef} className={itemClasses}>
                   {children}
                 </Tag>
               );

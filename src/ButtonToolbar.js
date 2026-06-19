@@ -26,7 +26,7 @@ const ButtonToolbar = (props) => {
   ), cssModule);
 
   return (
-    <Tag {...attributes} className={classes} />
+    <Tag {...attributes} role={role} className={classes} />
   );
 };
 

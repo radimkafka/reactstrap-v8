@@ -266,8 +266,8 @@
     "react-transition-group": "^4.4.5"
   },
   "peerDependencies": {
-    "react": ">=16.3.0",
-    "react-dom": ">=16.3.0"
+    "react": "^16.3.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.3.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -291,8 +291,8 @@
     "customize-cra": "^0.2.8",
     "dtslint": "^4.0.4",
     "ejs": "^2.5.9",
+    "@cfaester/enzyme-adapter-react-18": "^0.8.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^5.0.0",
     "eslint-config-react-app": "^3.0.6",
     "eslint-plugin-flowtype": "^3.13.0",
@@ -312,7 +312,7 @@
     "react-prism": "^4.3.2",
     "react-router": "^3.2.1",
     "react-scripts": "2.1.1",
-    "react-test-renderer": "^16.3.2",
+    "react-test-renderer": "^18.3.1",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.2.0",
     "rollup-plugin-babel-minify": "^6.2.0",

@@ -18,13 +18,13 @@ describe('Progress', () => {
   it('should render with "value" 0 by default', () => {
     const wrapper = mount(<Progress />);
 
-    expect(wrapper.prop('value')).toBe(0);
+    expect(wrapper.find('.progress-bar').prop('aria-valuenow')).toBe(0);
   });
 
   it('should render with "max" 100 by default', () => {
     const wrapper = mount(<Progress />);
 
-    expect(wrapper.prop('max')).toBe(100);
+    expect(wrapper.find('.progress-bar').prop('aria-valuemax')).toBe(100);
   });
 
   it('should render with "style" on the parent element', () => {

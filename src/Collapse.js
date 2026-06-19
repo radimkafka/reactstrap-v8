@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
@@ -55,36 +55,53 @@ class Collapse extends Component {
       height: null
     };
 
+    this.nodeRef = createRef();
+
     ['onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited'].forEach((name) => {
       this[name] = this[name].bind(this);
     });
   }
 
-  onEntering(node, isAppearing) {
+  onEntering(isAppearing) {
+    const node = this.nodeRef.current;
     this.setState({ height: getHeight(node) });
     this.props.onEntering(node, isAppearing);
   }
 
-  onEntered(node, isAppearing) {
+  onEntered(isAppearing) {
+    const node = this.nodeRef.current;
     this.setState({ height: null });
     this.props.onEntered(node, isAppearing);
   }
 
-  onExit(node) {
+  onExit() {
+    const node = this.nodeRef.current;
     this.setState({ height: getHeight(node) });
     this.props.onExit(node);
   }
 
-  onExiting(node) {
+  onExiting() {
+    const node = this.nodeRef.current;
     // getting this variable triggers a reflow
     const _unused = node.offsetHeight; // eslint-disable-line no-unused-vars
     this.setState({ height: 0 });
     this.props.onExiting(node);
   }
 
-  onExited(node) {
+  onExited() {
+    const node = this.nodeRef.current;
     this.setState({ height: null });
     this.props.onExited(node);
+  }
+
+  setRef = (node) => {
+    this.nodeRef.current = node;
+    const { innerRef } = this.props;
+    if (typeof innerRef === 'function') {
+      innerRef(node);
+    } else if (innerRef) {
+      innerRef.current = node;
+    }
   }
 
   render() {
@@ -106,6 +123,7 @@ class Collapse extends Component {
     return (
       <Transition
         {...transitionProps}
+        nodeRef={this.nodeRef}
         in={isOpen}
         onEntering={this.onEntering}
         onEntered={this.onEntered}
@@ -126,7 +144,7 @@ class Collapse extends Component {
               {...childProps}
               style={{ ...childProps.style, ...style }}
               className={classes}
-              ref={this.props.innerRef}
+              ref={this.setRef}
             >
               {children}
             </Tag>

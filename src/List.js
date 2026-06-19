@@ -10,15 +10,11 @@ const propTypes = {
   type: PropTypes.string
 };
 
-const defaultProps ={
-  tag: 'ul'
-};
-
 const List = forwardRef((props, ref) => {
   const {
     className,
     cssModule,
-    tag: Tag,
+    tag: Tag = 'ul',
     type,
     ...attributes
   } = props;
@@ -33,6 +29,5 @@ const List = forwardRef((props, ref) => {
 });
 
 List.propTypes = propTypes;
-List.defaultProps = defaultProps;
 
 export default List;

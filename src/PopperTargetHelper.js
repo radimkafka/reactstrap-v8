@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
-import { getTarget, targetPropType } from './utils';
+import { targetPropType } from './utils';
 
-const PopperTargetHelper = (props, context) => {
-  context.popperManager.setTargetNode(getTarget(props.target));
-  return null;
-};
-
-PopperTargetHelper.contextTypes = {
-  popperManager: PropTypes.object.isRequired,
-};
+// Legacy no-op. This component relied on react-popper 0.x's `popperManager`
+// legacy context, which no longer exists (PopperContent passes the target
+// element to react-popper directly via `referenceElement`). The legacy context
+// API was also removed in React 19, so the component simply renders nothing.
+// Kept as a public export for backwards compatibility.
+const PopperTargetHelper = () => null;
 
 PopperTargetHelper.propTypes = {
   target: targetPropType.isRequired,

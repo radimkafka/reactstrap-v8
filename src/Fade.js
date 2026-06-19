@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
@@ -56,6 +56,8 @@ function Fade(props) {
     ...otherProps
   } = props;
 
+  const nodeRef = useRef(null);
+
   // Set defaults for transition props, filtering out undefined values
   const pickedProps = pick(otherProps, TransitionPropTypeKeys);
   const filteredProps = Object.fromEntries(
@@ -71,8 +73,18 @@ function Fade(props) {
   };
   const childProps = omit(otherProps, TransitionPropTypeKeys);
 
+  // Combine innerRef (user's ref) with nodeRef (for react-transition-group)
+  const setRef = (node) => {
+    nodeRef.current = node;
+    if (typeof innerRef === 'function') {
+      innerRef(node);
+    } else if (innerRef) {
+      innerRef.current = node;
+    }
+  };
+
   return (
-    <Transition {...transitionPropsWithDefaults}>
+    <Transition nodeRef={nodeRef} {...transitionPropsWithDefaults}>
       {(status) => {
         const isActive = status === 'entered';
         const classes = mapToCssModules(classNames(
@@ -81,7 +93,7 @@ function Fade(props) {
           isActive && baseClassActive
         ), cssModule);
         return (
-          <Tag className={classes} {...childProps} ref={innerRef}>
+          <Tag className={classes} {...childProps} ref={setRef}>
             {children}
           </Tag>
         );
