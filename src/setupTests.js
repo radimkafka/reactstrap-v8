@@ -3,6 +3,11 @@ import util from 'util';
 import Enzyme from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
+// Custom jest-dom matchers (toHaveClass, toBeInTheDocument, ...) for the RTL
+// (`*.test.js`) suites. Harmless for the Enzyme (`*.spec.js`) suites, which
+// share this setup file. RTL itself auto-registers an afterEach cleanup() when
+// it detects this jest environment, so portals/renders are torn down per test.
+import '@testing-library/jest-dom';
 
 Enzyme.configure({ adapter: new Adapter() });
 
