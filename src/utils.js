@@ -356,6 +356,140 @@ export function addMultipleEventListeners(_els, handler, _events, useCapture) {
   };
 }
 
+/**
+ * Parse a reactstrap/popper.js v1 `offset` value (a number or a string such as
+ * `"0, 8"`) into the `[skidding, distance]` tuple expected by the
+ * `@popperjs/core` v2 offset modifier.
+ */
+export function parsePopperOffset(offset) {
+  if (typeof offset === 'number') {
+    return [0, offset];
+  }
+  const parts = String(offset)
+    .split(',')
+    .map(part => Number(part.trim()));
+  const safe = parts.map(n => (Number.isNaN(n) ? 0 : n));
+  return safe.length === 1 ? [0, safe[0]] : [safe[0], safe[1]];
+}
+
+/**
+ * Translate a popper.js v1 `boundariesElement` value into the equivalent
+ * `@popperjs/core` v2 boundary options. Returns `undefined` when the v2 default
+ * (`clippingParents`) is the closest match.
+ */
+function mapBoundariesElement(boundariesElement) {
+  if (!boundariesElement || boundariesElement === 'scrollParent') {
+    return undefined; // v2 default `clippingParents` is the closest equivalent
+  }
+  if (boundariesElement === 'viewport') {
+    return { rootBoundary: 'viewport' };
+  }
+  if (boundariesElement === 'window') {
+    return { rootBoundary: 'document' };
+  }
+  if (typeof boundariesElement === 'string') {
+    return undefined; // unknown keyword — fall back to v2 default
+  }
+  return { boundary: boundariesElement }; // DOM element
+}
+
+function mapUserModifierOptions(name, options) {
+  if (name === 'offset' && 'offset' in options) {
+    return { ...options, offset: parsePopperOffset(options.offset) };
+  }
+  if ((name === 'preventOverflow' || name === 'flip') && 'boundariesElement' in options) {
+    const { boundariesElement, ...rest } = options;
+    return { ...rest, ...(mapBoundariesElement(boundariesElement) || {}) };
+  }
+  return options;
+}
+
+/**
+ * Convert the public, popper.js v1-shaped `modifiers` prop into the array of
+ * modifiers expected by `@popperjs/core` v2.
+ *
+ * - An array is assumed to already be in v2 format and is passed through.
+ * - An object is translated entry-by-entry (`{ name, enabled, options }`), with
+ *   known options remapped (`offset` -> tuple, `boundariesElement` -> boundary).
+ * - Custom modifier *functions* (the v1 `fn`/`order` API) cannot be expressed in
+ *   v2's modifier model and are dropped with a one-time warning.
+ */
+function convertUserModifiers(modifiers) {
+  if (!modifiers) return [];
+  if (Array.isArray(modifiers)) return modifiers;
+
+  const result = [];
+  Object.keys(modifiers).forEach(name => {
+    const value = modifiers[name] || {};
+    if (typeof value.fn === 'function') {
+      warnOnce(
+        `reactstrap: the custom popper modifier "${name}" uses the popper.js v1 ` +
+          `modifier function API, which is not supported by @popperjs/core v2. ` +
+          `It has been ignored — see https://popper.js.org/docs/v2/modifiers/ to migrate.`
+      );
+      return;
+    }
+    const { enabled, order, ...options } = value; // eslint-disable-line no-unused-vars
+    const entry = { name };
+    if (enabled !== undefined) entry.enabled = enabled;
+    const mapped = mapUserModifierOptions(name, options);
+    if (mapped && Object.keys(mapped).length) entry.options = mapped;
+    result.push(entry);
+  });
+  return result;
+}
+
+/**
+ * Build the `@popperjs/core` v2 modifiers array from reactstrap's public,
+ * popper.js v1-style props. User-supplied modifiers are appended last so they
+ * override the defaults by name (popper merges modifiers by name, last wins).
+ */
+export function mapToPopper2Modifiers({
+  offset,
+  flip = true,
+  fallbackPlacement,
+  boundariesElement,
+  modifiers,
+} = {}) {
+  const base = [];
+
+  if (offset !== undefined && offset !== null && offset !== 0 && offset !== '0') {
+    base.push({ name: 'offset', options: { offset: parsePopperOffset(offset) } });
+  }
+
+  const flipEntry = { name: 'flip', enabled: flip !== false };
+  if (Array.isArray(fallbackPlacement)) {
+    flipEntry.options = { fallbackPlacements: fallbackPlacement };
+  }
+  base.push(flipEntry);
+
+  const boundaryOptions = mapBoundariesElement(boundariesElement);
+  if (boundaryOptions) {
+    base.push({ name: 'preventOverflow', options: boundaryOptions });
+  }
+
+  return base.concat(convertUserModifiers(modifiers));
+}
+
+/**
+ * Compose multiple refs (callback refs or ref objects) into a single callback
+ * ref. Used where a component must forward a node to more than one consumer.
+ */
+export function mergeRefs(...refs) {
+  return node => {
+    refs.forEach(ref => {
+      if (!ref) return;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (typeof ref === 'object') {
+        try {
+          ref.current = node;
+        } catch (e) {} // eslint-disable-line no-empty
+      }
+    });
+  };
+}
+
 export const focusableElements = [
   'a[href]',
   'area[href]',

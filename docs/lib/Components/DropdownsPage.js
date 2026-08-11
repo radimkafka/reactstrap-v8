@@ -330,22 +330,18 @@ DropdownItem.propTypes = {
                   Dropdown
                 </DropdownToggle>
                 <DropdownMenu
-                  modifiers={{
-                    setMaxHeight: {
+                  modifiers={[
+                    {
+                      name: 'setMaxHeight',
                       enabled: true,
-                      order: 890,
-                      fn: (data) => {
-                        return {
-                          ...data,
-                          styles: {
-                            ...data.styles,
-                            overflow: 'auto',
-                            maxHeight: '100px',
-                          },
-                        };
+                      phase: 'beforeWrite',
+                      requires: ['computeStyles'],
+                      fn: ({ state }) => {
+                        state.styles.popper.overflow = 'auto';
+                        state.styles.popper.maxHeight = '100px';
                       },
                     },
-                  }}
+                  ]}
                 >
                   <DropdownItem>Another Action</DropdownItem>
                   <DropdownItem>Another Action</DropdownItem>

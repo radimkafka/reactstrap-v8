@@ -1,13 +1,17 @@
 import * as React from 'react';
-import * as Popper from 'popper.js';
+import { StrictModifiers } from '@popperjs/core';
 import { CSSModule } from './index';
+
+export type PopperModifiers =
+  | ReadonlyArray<Partial<StrictModifiers>>
+  | { [key: string]: any };
 
 export interface DropdownMenuProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: any;
   tag?: React.ElementType;
   right?: boolean;
   flip?: boolean;
-  modifiers?: Popper.Modifiers;
+  modifiers?: PopperModifiers;
   cssModule?: CSSModule;
   persist?: boolean;
   positionFixed?: boolean;

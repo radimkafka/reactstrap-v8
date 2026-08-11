@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { Popper as ReactPopper } from 'react-popper';
-import { getTarget, targetPropType, mapToCssModules, DOMElement, tagPropType } from './utils';
+import { getTarget, targetPropType, mapToCssModules, mapToPopper2Modifiers, DOMElement, tagPropType } from './utils';
 import Fade, { fadeDefaultProps } from './Fade';
 
 function noop() {  }
@@ -126,12 +126,13 @@ class PopperContent extends React.Component {
       placementPrefix ? `${placementPrefix}-auto` : ''
     ), this.props.cssModule);
 
-    const extendedModifiers = {
-      offset: { offset },
-      flip: { enabled: flip, behavior: fallbackPlacement },
-      preventOverflow: { boundariesElement },
-      ...modifiers,
-    };
+    const extendedModifiers = mapToPopper2Modifiers({
+      offset,
+      flip,
+      fallbackPlacement,
+      boundariesElement,
+      modifiers,
+    });
 
     const popperTransition = {
       ...fadeDefaultProps,
@@ -152,11 +153,11 @@ class PopperContent extends React.Component {
           referenceElement={this.targetNode}
           modifiers={extendedModifiers}
           placement={placement}
-          positionFixed={positionFixed}
+          strategy={positionFixed ? 'fixed' : 'absolute'}
         >
-          {({ ref, style, placement, outOfBoundaries, arrowProps, scheduleUpdate }) => (
-            <div ref={ref} style={style} className={popperClassName} x-placement={placement} x-out-of-boundaries={outOfBoundaries ? 'true' : undefined}>
-              {typeof children === 'function' ? children({ scheduleUpdate }) : children}
+          {({ ref, style, placement, arrowProps, update }) => (
+            <div ref={ref} style={style} className={popperClassName} x-placement={placement}>
+              {typeof children === 'function' ? children({ scheduleUpdate: update }) : children}
               {!hideArrow && <span ref={arrowProps.ref} className={arrowClassName} style={arrowProps.style} />}
             </div>
           )}

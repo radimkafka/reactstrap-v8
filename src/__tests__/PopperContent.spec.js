@@ -100,16 +100,16 @@ describe('PopperContent', () => {
       >Yo!</PopperContent>
     );
 
-    expect(wrapper.find(Popper).props().modifiers).toMatchObject({
-      // remaining default modifiers
-      flip: { enabled: true, behavior: 'flip' },
+    expect(wrapper.find(Popper).props().modifiers).toEqual([
+      // remaining default modifiers (translated to @popperjs/core v2 format)
+      { name: 'flip', enabled: true },
 
-      // additional modifiers
-      preventOverflow: { boundariesElement: 'viewport' },
+      // additional modifiers (boundariesElement -> rootBoundary)
+      { name: 'preventOverflow', options: { rootBoundary: 'viewport' } },
 
-      // override modifiers
-      offset: { offset: 2 },
-    });
+      // override modifiers (offset value -> [skidding, distance] tuple)
+      { name: 'offset', options: { offset: [0, 2] } },
+    ]);
 
     wrapper.unmount();
   });

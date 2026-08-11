@@ -146,7 +146,7 @@ describe('DropdownMenu', () => {
       </DropdownContext.Provider>
     );
 
-    expect(wrapper.find(Popper).prop('modifiers')).toBe(undefined);
+    expect(wrapper.find(Popper).prop('modifiers')).toEqual([{ name: 'flip', enabled: true }]);
   });
 
   it('should disable flip modifier when flip is false', () => {
@@ -157,7 +157,7 @@ describe('DropdownMenu', () => {
       </DropdownContext.Provider>
     );
 
-    expect(wrapper.find(Popper).prop('modifiers')).toEqual({ flip: { enabled: false } });
+    expect(wrapper.find(Popper).prop('modifiers')).toEqual([{ name: 'flip', enabled: false }]);
   });
 
   it('should position using fixed mode when positionFixed is true', () => {
@@ -168,7 +168,7 @@ describe('DropdownMenu', () => {
       </DropdownContext.Provider>
     );
 
-    expect(wrapper.find(Popper).prop('positionFixed')).toBe(true);
+    expect(wrapper.find(Popper).prop('strategy')).toBe('fixed');
   });
 
   it('should not render Popper when isOpen is false', () => {

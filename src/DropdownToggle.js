@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Reference } from 'react-popper';
 import { DropdownContext } from './DropdownContext';
-import { mapToCssModules, tagPropType } from './utils';
+import { mapToCssModules, mergeRefs, tagPropType } from './utils';
 import Button from './Button';
 
 const propTypes = {
@@ -98,11 +98,11 @@ class DropdownToggle extends React.Component {
     }
 
     return (
-      <Reference innerRef={innerRef}>
+      <Reference>
         {({ ref }) => (
           <Tag
             {...props}
-            {...{ [typeof Tag === 'string' ? 'ref' : 'innerRef']: ref }}
+            {...{ [typeof Tag === 'string' ? 'ref' : 'innerRef']: mergeRefs(ref, innerRef) }}
 
             className={classes}
             onClick={this.onClick}

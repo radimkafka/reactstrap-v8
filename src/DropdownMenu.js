@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { Popper } from 'react-popper';
 import { DropdownContext } from './DropdownContext';
-import { mapToCssModules, tagPropType, targetPropType, getTarget } from './utils';
+import { mapToCssModules, mapToPopper2Modifiers, tagPropType, targetPropType, getTarget } from './utils';
 
 const propTypes = {
   tag: tagPropType,
@@ -23,8 +23,6 @@ const defaultProps = {
   tag: 'div',
   flip: true,
 };
-
-const noFlipModifier = { flip: { enabled: false } };
 
 const directionPositionMap = {
   up: 'top',
@@ -72,17 +70,13 @@ class DropdownMenu extends React.Component {
       const position1 = directionPositionMap[this.context.direction] || 'bottom';
       const position2 = right ? 'end' : 'start';
       const poperPlacement = `${position1}-${position2}`;
-      const poperModifiers = !flip ? {
-        ...modifiers,
-        ...noFlipModifier,
-      } : modifiers;
-      const popperPositionFixed = !!positionFixed;
+      const poperModifiers = mapToPopper2Modifiers({ flip, modifiers });
 
       const popper = (
         <Popper
           placement={poperPlacement}
           modifiers={poperModifiers}
-          positionFixed={popperPositionFixed}
+          strategy={positionFixed ? 'fixed' : 'absolute'}
         >
           {({ ref, style, placement }) => {
             let combinedStyle = { ...this.props.style, ...style };
